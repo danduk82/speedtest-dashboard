@@ -1,12 +1,16 @@
 #!/bin/bash
 
-SPEEDTEST_CLI_PATH=/home/cedric/speedtest-cli
-USE_CDB=1
+SPEEDTEST_BIN=$(which speedtest-cli)
+SPEEDTEST_CLI_PATH=/your/path/to/speetest-cli
+USE_CDB=0
 
+if [[ -z "${SPEEDTEST_BIN}" ]] ; then 
+  SPEEDTEST_BIN=${SPEEDTEST_CLI_PATH}/speedtest_cli.py
+fi
 
-wget -q --spider http://google.com
+wget -q --spider https://google.com
 if [ $? -eq 0 ]; then
-  o=$(${SPEEDTEST_CLI_PATH}/speedtest_cli.py --csv)
+  o=$(${SPEEDTEST_BIN} --csv)
 else
   o="$(date +%s),0.00,0.00,0.00"
 fi
@@ -16,7 +20,7 @@ latency=$(echo $o | cut -d ',' -f 2)
 upload=$(echo $o | cut -d ',' -f 3)
 download=$(echo $o | cut -d ',' -f 4)
 
-if [ $USE_CDB == 1 ]; then
+if [ $USE_CDB -eq 1 ]; then
   echo curl -s -o /dev/null -X PUT http://127.0.0.1:5984/bandwidth/"${timestamp}" -d '{"latency": "'${latency}'", "upload": "'${upload}'", "download": "'${download}'"}'
 else
   echo $o

@@ -13,10 +13,8 @@ Get an overview of your bandwidth speed on a given time span.
   * [jquery](http://jquery.com/)
   * [bootstrap 3.x](http://getbootstrap.com/)
   * [momentjs](http://momentjs.com/)
-  * [modified speedtest-cli](https://github.com/cjeanneret/speedtest-cli)
+  * [speedtest-cli](https://pypi.python.org/pypi/speedtest-cli/)
 
-Note: the modified speedtest-cli might become deprecated, as the next release should
-allow computer-parsable outputs. Stay tuned!
 
 ## How does it work?
 On a computer that runs 24/7, with correct network interface (gigabit, fiber, etc),
@@ -32,7 +30,7 @@ You will need to configure some stuff:
 
 #### Script
 In the utils/speedtest, you need to fill two variables:
-  * SPEEDTEST_CLI_PATH (directory where to find the modified speedtest_cli.py)
+  * SPEEDTEST_CLI_PATH (directory where to find the speedtest_cli.py, if not installed sytem-wide)
   * USE_CDB (whether you use couchdb or not — set it to 1 if in use)
 
 #### Index file
